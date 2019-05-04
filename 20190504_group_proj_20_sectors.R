@@ -8,6 +8,7 @@ if (!require("sna")) install.packages("sna"); library(sna)
 if (!require("dplyr")) install.packages("dplyr"); library(dplyr)
 if (!require("animation")) install.packages("animation", repos = "http://cran.cnr.berkeley.edu/", dependencies = TRUE); library(readxl)
 if (!require("readxl")) install.packages("readxl"); library(readxl)
+if (!require("NMI")) install.packages("NMI"); library(NMI)
 
 setwd("C:/Users/eviriyakovithya/Documents/Social_Network_Analysis/group_proj")
 
@@ -39,7 +40,11 @@ colnames(mat_data) <- sector_ids
 par(mfrow=c(1,1))
 g_data <- igraph::graph_from_adjacency_matrix(mat_data, mode = "undirected")
 plot(g_data)
-
+g_data
+g_dataframe = igraph::graph.data.frame(mat_data)
+plot(g_dataframe)
+g_dataframe = as.undirected(g_dataframe, mode="collapse")
+g_dataframe
 #-------------------------------------------------
 # Walktrap algorithm
 #-------------------------------------------------
@@ -53,15 +58,20 @@ plot(g_data_wt, g_data)
 (g_data_m <- igraph::fastgreedy.community(g_data, modularity=TRUE))
 plot(g_data_m, g_data)
 
+#-------------------------------------------------
+# Edge Betweenness algorithm
+#-------------------------------------------------
 
+(g_data_E <- igraph::edge.betweenness.community(g_data, modularity=TRUE))
+plot(g_data_E, g_data)
 #-------------------------------------------------
 # Comparison
 #-------------------------------------------------
 
-par(mfrow=c(1,2))
+par(mfrow=c(1,3))
 plot(g_data_wt, g_data)
 plot(g_data_m, g_data)
-
+plot(g_data_E, g_data)
 
 ### n cluster function
 n<-nrow(mat_data)
@@ -139,9 +149,20 @@ best_MODULARITY$membership
 best_EDGE_BTW <- n.cluster(g_data,3)
 best_EDGE_BTW$membership
 
+#Performance Evaluation between communities
+
+#Walktrap and modularity optimisation
+performance = compare(best_WALKTRAP$membership,best_MODULARITY$membership,method = "rand")
+performance_vi = compare(best_WALKTRAP$membership,best_MODULARITY$membership,method = "vi")
+performance_adjrand = compare(best_WALKTRAP$membership,best_MODULARITY$membership,method = "adjusted.rand")
+
+#Modularity optimisation and Edge Betweeness
+performance1 = compare(best_EDGE_BTW$membership,best_MODULARITY$membership,method = "rand")
+performance_vi1 = compare(best_EDGE_BTW$membership,best_MODULARITY$membership,method = "vi")
+performance_adjrand1 = compare(best_EDGE_BTW$membership,best_MODULARITY$membership,method = "adjusted.rand")
 
 
-
-
-
-
+#walktrap and Edge Betweeness
+performance2 = compare(best_WALKTRAP$membership,best_EDGE_BTW$membership,method = "rand")
+performance_vi2 = compare(best_WALKTRAP$membership,best_EDGE_BTW$membership,method = "vi")
+performance_adjrand2 = compare(best_WALKTRAP$membership,best_EDGE_BTW$membership,method = "adjusted.rand")
