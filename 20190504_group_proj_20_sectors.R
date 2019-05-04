@@ -124,18 +124,20 @@ n.cluster <- function(g, type){
   cs.membership = community
   plot(cs,g)
   
-  return(c(which.max(ideal_observed_modul), which.max(ideal_observed_cors)))
+  return(c(cs,which.max(ideal_observed_modul), which.max(ideal_observed_cors)))
 }
 
 # [1] "WALKTRAP METHOD"
-n.cluster(g_data,1)
+best_WALKTRAP <- n.cluster(g_data,1)
+best_WALKTRAP$membership
 
 # [1] "MODULARITY OPTIMIZATION METHOD"
-n.cluster(g_data,2)
+best_MODULARITY <- n.cluster(g_data,2)
+best_MODULARITY$membership
 
 # [1] "EDGE BETWEENNESS METHOD"
-n.cluster(g_data,3)
-
+best_EDGE_BTW <- n.cluster(g_data,3)
+best_EDGE_BTW$membership
 
 
 
