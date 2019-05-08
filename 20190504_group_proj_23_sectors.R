@@ -9,9 +9,9 @@ if (!require("dplyr")) install.packages("dplyr"); library(dplyr)
 if (!require("animation")) install.packages("animation", repos = "http://cran.cnr.berkeley.edu/", dependencies = TRUE); library(readxl)
 if (!require("readxl")) install.packages("readxl"); library(readxl)
 if (!require("NMI")) install.packages("NMI"); library(NMI)
-
+#set working directory
 setwd("C:/Users/eviriyakovithya/Documents/GitHub/SNA/Data")
-
+#read data
 data <- read_excel("Supply_2012_DET_23_sectors.xlsx", sheet = "2012")
 names(data)
 head(data)
@@ -31,9 +31,9 @@ combined_df <- combined_df %>% select(Sector,sector_ids) %>% group_by(Sector) %>
 names(combined_df)
 combined_df$Sector <- NULL
 combined_df[combined_df!=0] <- 1
-
+#trasform to matrix
 mat_data <- as.matrix(combined_df)
-
+#set colnames and row names
 rownames(mat_data) <- sector_ids
 colnames(mat_data) <- sector_ids
 

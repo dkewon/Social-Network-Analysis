@@ -135,11 +135,13 @@ n.cluster <- function(g, type){
 
 # [1] "WALKTRAP METHOD"
 best_WALKTRAP <- n.cluster(g_data,1)
+best_WALKTRAP$membership
 best_WALKTRAP_group <- cbind(sector_ids,best_WALKTRAP$membership)
 write.csv(best_WALKTRAP_group, "best_WALKTRAP_group_70.csv",row.names=FALSE)
 
 # [1] "MODULARITY OPTIMIZATION METHOD"
 best_MODULARITY <- n.cluster(g_data,2)
+best_MODULARITY$membership
 best_MODULARITY_group <- cbind(sector_ids,best_MODULARITY$membership)
 write.csv(best_MODULARITY_group, "best_MODULARITY_group_70.csv",row.names=FALSE)
 
