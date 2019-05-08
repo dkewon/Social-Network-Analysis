@@ -10,9 +10,9 @@ if (!require("animation")) install.packages("animation", repos = "http://cran.cn
 if (!require("readxl")) install.packages("readxl"); library(readxl)
 if (!require("NMI")) install.packages("NMI"); library(NMI)
 
-setwd("C:/Users/eviriyakovithya/Documents/Social_Network_Analysis/group_proj")
+setwd("C:/Users/eviriyakovithya/Documents/GitHub/SNA/Data")
 
-data <- read_excel("Supply_2012_DET_20_sectors.xlsx", sheet = "2012")
+data <- read_excel("Supply_2012_DET_23_sectors.xlsx", sheet = "2012")
 names(data)
 head(data)
 data[is.na(data)] <- 0
@@ -139,15 +139,19 @@ n.cluster <- function(g, type){
 
 # [1] "WALKTRAP METHOD"
 best_WALKTRAP <- n.cluster(g_data,1)
-best_WALKTRAP$membership
+best_WALKTRAP_group <- cbind(sector_ids,best_WALKTRAP$membership)
+write.csv(best_WALKTRAP_group, "best_WALKTRAP_group_23.csv")
 
 # [1] "MODULARITY OPTIMIZATION METHOD"
 best_MODULARITY <- n.cluster(g_data,2)
-best_MODULARITY$membership
+best_MODULARITY_group <- cbind(sector_ids,best_MODULARITY$membership)
+write.csv(best_MODULARITY_group, "best_MODULARITY_group_23.csv")
 
 # [1] "EDGE BETWEENNESS METHOD"
 best_EDGE_BTW <- n.cluster(g_data,3)
 best_EDGE_BTW$membership
+best_EDGE_BTW_group <- cbind(sector_ids,best_EDGE_BTW$membership)
+write.csv(best_EDGE_BTW_group, "best_EDGE_BTW_group_23.csv")
 
 #Performance Evaluation between communities
 
