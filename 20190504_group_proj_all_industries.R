@@ -9,7 +9,7 @@ if (!require("dplyr")) install.packages("dplyr"); library(dplyr)
 if (!require("animation")) install.packages("animation", repos = "http://cran.cnr.berkeley.edu/", dependencies = TRUE); library(readxl)
 if (!require("readxl")) install.packages("readxl"); library(readxl)
 
-setwd("C:/Users/eviriyakovithya/Documents/Social_Network_Analysis/group_proj")
+setwd("C:/Users/eviriyakovithya/Documents/GitHub/SNA/Data")
 
 data <- read_excel("Supply_2012_DET_orig.xlsx", sheet = "2012")
 names(data)
@@ -123,20 +123,24 @@ n.cluster <- function(g, type){
   cs.membership = community
   plot(cs,g)
   
-  return(c(which.max(ideal_observed_modul), which.max(ideal_observed_cors)))
+  return(c(cs,which.max(ideal_observed_modul), which.max(ideal_observed_cors)))
 }
 
 # [1] "WALKTRAP METHOD"
 best_WALKTRAP <- n.cluster(g_data,1)
-best_WALKTRAP$membership
+best_WALKTRAP_group <- cbind(sector_ids,best_WALKTRAP$membership)
+write.csv(best_WALKTRAP_group, "best_WALKTRAP_group_405.csv",row.names=FALSE)
 
 # [1] "MODULARITY OPTIMIZATION METHOD"
 best_MODULARITY <- n.cluster(g_data,2)
-best_MODULARITY$membership
+best_MODULARITY_group <- cbind(sector_ids,best_MODULARITY$membership)
+write.csv(best_MODULARITY_group, "best_MODULARITY_group_405.csv",row.names=FALSE)
 
 # [1] "EDGE BETWEENNESS METHOD"
 best_EDGE_BTW <- n.cluster(g_data,3)
 best_EDGE_BTW$membership
+best_EDGE_BTW_group <- cbind(sector_ids,best_EDGE_BTW$membership)
+write.csv(best_EDGE_BTW_group, "best_EDGE_BTW_group_405.csv",row.names=FALSE)
 
 #Performance Evaluation between communities
 
