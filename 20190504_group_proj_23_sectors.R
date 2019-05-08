@@ -122,7 +122,7 @@ n.cluster <- function(g, type){
       ideal_observed_modul <- append(ideal_observed_modul, 
                                      modularity(g, community))
     }
-    cat('number of communities: ', num_comms, '\t', 'correlation: ', round(ideal_observed_cors[h],3),'\t', 'modularity: ', round(ideal_observed_modul [h],3),'\n')
+    cat('number of communities: ', h, '\t', 'correlation: ', round(ideal_observed_cors[h],3),'\t', 'modularity: ', round(ideal_observed_modul [h],3),'\n')
   }
   par(mfrow=c(1,3))
   plot(ideal_observed_modul, type = 'o')
