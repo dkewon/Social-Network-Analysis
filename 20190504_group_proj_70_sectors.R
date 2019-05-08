@@ -9,7 +9,7 @@ if (!require("dplyr")) install.packages("dplyr"); library(dplyr)
 if (!require("animation")) install.packages("animation", repos = "http://cran.cnr.berkeley.edu/", dependencies = TRUE); library(readxl)
 if (!require("readxl")) install.packages("readxl"); library(readxl)
 
-setwd("C:/Users/eviriyakovithya/Documents/Social_Network_Analysis/group_proj")
+setwd("C:/Users/eviriyakovithya/Documents/GitHub/SNA/Data")
 
 data <- read_excel("Supply_2012_DET_70_sectors.xlsx", sheet = "2012")
 names(data)
