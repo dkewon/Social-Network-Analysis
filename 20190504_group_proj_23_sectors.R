@@ -84,7 +84,7 @@ n.cluster <- function(g, type){
   
   if(type == 1){
     print('WALKTRAP METHOD')
-    community.structure <- igraph::walktrap.community(g, steps = 200)
+    community.structure <- igraph::walktrap.community(g, steps = 4)
   }else if(type == 2){
     print('MODULARITY OPTIMIZATION METHOD')
     community.structure <- igraph::fastgreedy.community(g)
@@ -139,11 +139,13 @@ n.cluster <- function(g, type){
 
 # [1] "WALKTRAP METHOD"
 best_WALKTRAP <- n.cluster(g_data,1)
+best_WALKTRAP$membership
 best_WALKTRAP_group <- cbind(sector_ids,best_WALKTRAP$membership)
 write.csv(best_WALKTRAP_group, "best_WALKTRAP_group_23.csv",row.names=FALSE)
 
 # [1] "MODULARITY OPTIMIZATION METHOD"
 best_MODULARITY <- n.cluster(g_data,2)
+best_MODULARITY$membership
 best_MODULARITY_group <- cbind(sector_ids,best_MODULARITY$membership)
 write.csv(best_MODULARITY_group, "best_MODULARITY_group_23.csv",row.names=FALSE)
 
@@ -170,3 +172,4 @@ performance_adjrand1 = compare(best_EDGE_BTW$membership,best_MODULARITY$membersh
 performance2 = compare(best_WALKTRAP$membership,best_EDGE_BTW$membership,method = "rand")
 performance_vi2 = compare(best_WALKTRAP$membership,best_EDGE_BTW$membership,method = "vi")
 performance_adjrand2 = compare(best_WALKTRAP$membership,best_EDGE_BTW$membership,method = "adjusted.rand")
+
